@@ -2,9 +2,21 @@
    box-sizing: border-box;
 }
 
+body {
+   margin: 0;
+}
+
+.container {
+   display: grid;
+   width: 500px;
+   height: 500px;
+   margin: 0 auto;
+}
+
 canvas {
    display: block;
+   border-radius: 50%;
+   width: 500px;
+   height: 500px;
    background-color: #bcaf6f;
-   width: 520px;
-   height: 520px;
 }

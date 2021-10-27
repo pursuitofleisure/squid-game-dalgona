@@ -1,4 +1,7 @@
 /* Prepare canvas */
+//const intViewportWidth = window.innerWidth;
+const container = document.querySelector('.container');
+const bounds = container.getBoundingClientRect();
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -8,8 +11,8 @@ let prevY = '';
 let pixelsShape = '';
 
 function setupCanvas() {
-   canvas.height = 520;
-   canvas.width = 520;
+   canvas.height = 500;
+   canvas.width = 500;
    ctx.lineWidth = 20;
    ctx.lineCap = 'round';
    ctx.strokeStyle = 'rgb(0, 0, 0)';
@@ -18,9 +21,9 @@ function setupCanvas() {
 function drawTriangle() {
    ctx.strokeStyle = 'rgb(66, 10, 0)';
    ctx.beginPath();
-   ctx.moveTo(260, 10);
-   ctx.lineTo(510, 510);
-   ctx.lineTo(10, 510);
+   ctx.moveTo(250, 100);
+   ctx.lineTo(400, 350);
+   ctx.lineTo(100, 350);
    ctx.closePath();
    ctx.stroke();
    /* Get pixels of shape */
@@ -28,9 +31,10 @@ function drawTriangle() {
 }
 
 function handleMouseMove(e) {
-   const x = e.clientX;
-   const y = e.clientY;
+   const x = e.clientX - bounds.left;
+   const y = e.clientY - bounds.top;
    /* Only paint when user is holding mouse down */
+   // console.log(`x is ${e.clientX}, bounds x is ${x}`);
    if (mouseDown) {
       paint(x, y);
    }
@@ -113,5 +117,6 @@ canvas.addEventListener('mousemove', handleMouseMove);
 canvas.addEventListener('mousedown', handleMouseDown);
 canvas.addEventListener('mouseup', handleMouseUp);
 
+//console.log(intViewportWidth);
 setupCanvas();
 drawTriangle();
