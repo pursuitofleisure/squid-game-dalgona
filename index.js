@@ -13,9 +13,9 @@ let pixelsShape = '';
 function setupCanvas() {
    canvas.height = 500;
    canvas.width = 500;
-   ctx.lineWidth = 20;
+   ctx.lineWidth = 16;
    ctx.lineCap = 'round';
-   ctx.strokeStyle = 'rgb(0, 0, 0)';
+   //ctx.strokeStyle = 'rgb(0, 0, 0)';
 }
 
 function drawTriangle() {
@@ -70,7 +70,7 @@ function paint(x, y) {
    if (color.a === 0) {
       console.log('error');
    } else {
-      ctx.strokeStyle = 'rgb(1, 1, 1)';
+      ctx.strokeStyle = 'rgb(247, 226, 135)';
       ctx.beginPath();
       /* Draw a continuous line */
       if (prevX > 0 && prevY > 0) {
@@ -101,11 +101,11 @@ function getPixelAmount(r, g, b) {
 
 /* Divide the number of pixels that were traced by the pixels in the shape to determine how accurate the cut out is */
 function evaluatePixels() {
-   let pixelsTrace = getPixelAmount(1, 1, 1);
+   let pixelsTrace = getPixelAmount(247, 226, 135);
    console.log(`Pixels Shape: ${pixelsShape}`);
    console.log(`Pixels Trace: ${pixelsTrace}`);
    let pixelDifference = pixelsTrace / pixelsShape;
-   if (pixelDifference > 0.35) {
+   if (pixelDifference > 0.75 && pixelDifference < 1.25) {
       console.log(`${pixelDifference} You passed`);
    } else {
       console.log(`${pixelDifference} You failed`)

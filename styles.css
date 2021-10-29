@@ -7,16 +7,24 @@ body {
 }
 
 .container {
-   display: grid;
    width: 500px;
    height: 500px;
-   margin: 0 auto;
+   margin: 3em auto 0;
 }
 
 canvas {
    display: block;
    border-radius: 50%;
+   border: 2px solid #315978;
+   box-shadow: 0 0 4px 4px #060c15; 
    width: 500px;
    height: 500px;
-   background-color: #bcaf6f;
+   background-color: #c1b36c;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#c4b56f+0,c1a94f+62,6b4c14+90,c1a94f+93,956b1b+94,956b1b+100 */
+background: #c4b56f; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #c4b56f 0%, #c1a94f 62%, #6b4c14 90%, #c1a94f 93%, #956b1b 94%, #956b1b 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  #c4b56f 0%,#c1a94f 62%,#6b4c14 90%,#c1a94f 93%,#956b1b 94%,#956b1b 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  #c4b56f 0%,#c1a94f 62%,#6b4c14 90%,#c1a94f 93%,#956b1b 94%,#956b1b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4b56f', endColorstr='#956b1b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
