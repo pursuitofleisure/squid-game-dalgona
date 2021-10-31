@@ -6,13 +6,29 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Squid Game Dalgona by Diana Le</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
-   <div class="container">
+   <div class="container container-canvas">
       <canvas></canvas>
    </div>
+   <div class="container">
+      <h2>Hold Down the Cursor<br>Trace the Shape Continuously</h2>
+      <button class="restart">Start Over</button>
+   </div>
+   <section class="game">
+      <div class="game__card">
+         <h1>Select Your Shape</h1>
+         <button class="game__button game__button-triangle" aria-label="Triangle">Triangle</button>
+         <button class="game__button game__button-circle" aria-label="Circle">Circle</button>
+         <button class="game__button game__button-star" aria-label="Star">Star</button>
+         <button class="game__button game__button-umbrella" aria-label="Umbrella">Umbrella</button>
+      </div>
+   </section>
    <script src="./index.js"></script>
 </body>
 

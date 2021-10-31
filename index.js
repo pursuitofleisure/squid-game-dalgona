@@ -5,6 +5,12 @@ const bounds = container.getBoundingClientRect();
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
+const buttonTriangle = document.querySelector('.game__button-triangle');
+const buttonCircle = document.querySelector('.game__button-circle');
+const buttonStar = document.querySelector('.game__button-star');
+const buttonUmbrella = document.querySelector('.game__button-umbrella');
+const gameStart = document.querySelector('.game');
+
 let mouseDown = false;
 let prevX = '';
 let prevY = '';
@@ -18,7 +24,9 @@ function setupCanvas() {
    //ctx.strokeStyle = 'rgb(0, 0, 0)';
 }
 
+/* Triangle shape */
 function drawTriangle() {
+   gameStart.classList.add('hidden');
    ctx.strokeStyle = 'rgb(66, 10, 0)';
    ctx.beginPath();
    ctx.moveTo(250, 100);
@@ -30,6 +38,65 @@ function drawTriangle() {
    pixelsShape = getPixelAmount(66, 10, 0);
 }
 
+/* Circle shape */
+function drawCircle() {
+   gameStart.classList.add('hidden');
+   ctx.strokeStyle = 'rgb(66, 10, 0)';
+   ctx.beginPath();
+   ctx.arc(250, 250, 125, 0*Math.PI, 2 * Math.PI);
+   ctx.closePath();
+   ctx.stroke();
+   /* Get pixels of shape */
+   pixelsShape = getPixelAmount(66, 10, 0);
+}
+
+/* Star shape */
+function drawStar() {
+   gameStart.classList.add('hidden');
+   ctx.strokeStyle = 'rgb(66, 10, 0)';
+
+   let rot = Math.PI / 2 * 3;
+   let x = 250;
+   let y = 250;
+   let cx = 250;
+   let cy = 250;
+   const spikes = 5;
+   const outerRadius = 150;
+   const innerRadius = 75;
+   const step = Math.PI / 5;
+
+   ctx.strokeSyle = "#000";
+   ctx.beginPath();
+   ctx.moveTo(cx, cy - outerRadius)
+   for (i = 0; i < spikes; i++) {
+       x = cx + Math.cos(rot) * outerRadius;
+       y = cy + Math.sin(rot) * outerRadius;
+       ctx.lineTo(x, y)
+       rot += step
+
+       x = cx + Math.cos(rot) * innerRadius;
+       y = cy + Math.sin(rot) * innerRadius;
+       ctx.lineTo(x, y)
+       rot += step
+   }
+   ctx.lineTo(cx, cy - outerRadius)
+   ctx.closePath();
+   ctx.stroke();
+   /* Get pixels of shape */
+   pixelsShape = getPixelAmount(66, 10, 0);
+}
+
+/* Umbrella Shape */
+function drawUmbrella() {
+   gameStart.classList.add('hidden');
+   ctx.strokeStyle = 'rgb(66, 10, 0)';
+   let path = new Path2D('M 100,100 h 50 v 50 h 50');
+   ctx.stroke(path);
+   /* Get pixels of shape */
+   pixelsShape = getPixelAmount(66, 10, 0);
+}
+
+/* Determine X and Y coordinates of mouse */
 function handleMouseMove(e) {
    const x = e.clientX - bounds.left;
    const y = e.clientY - bounds.top;
@@ -117,6 +184,11 @@ canvas.addEventListener('mousemove', handleMouseMove);
 canvas.addEventListener('mousedown', handleMouseDown);
 canvas.addEventListener('mouseup', handleMouseUp);
 
+buttonTriangle.addEventListener('click', drawTriangle);
+buttonCircle.addEventListener('click', drawCircle);
+buttonStar.addEventListener('click', drawStar);
+buttonUmbrella.addEventListener('click', drawUmbrella);
+
 //console.log(intViewportWidth);
 setupCanvas();
-drawTriangle();
+//drawTriangle();
