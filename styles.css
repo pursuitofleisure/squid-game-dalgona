@@ -45,7 +45,8 @@ button {
 }
 
 .container-canvas {
-   height: 500px;
+   width: 400px;
+   height: 400px;
    margin: 3em auto 0;
    position: relative;
 }
@@ -55,8 +56,8 @@ canvas {
    border-radius: 50%;
    border: 2px solid var(--color-green);
    box-shadow: 0 0 4px 4px #060c15; 
-   width: 500px;
-   height: 500px;
+   width: 400px;
+   height: 400px;
    background-color: #c1b36c;
    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#c4b56f+0,c1a94f+62,6b4c14+90,c1a94f+93,956b1b+94,956b1b+100 */
    background: #c4b56f; /* Old browsers */
