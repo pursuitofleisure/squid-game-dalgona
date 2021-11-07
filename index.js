@@ -114,27 +114,40 @@ function drawUmbrella() {
    // ctx.arc(295, 180, 25, 0*Math.PI, 1 * Math.PI, true);
    
    // line
-   // ctx.moveTo(180, 180);
-   // ctx.lineTo(180, 300);
-   // ctx.moveTo(300, 280);
+   
    // end line
    //ctx.closePath();
    //ctx.stroke();
-   drawArcs(200, 180, 120, 0, 1); // large parasol
-   drawArcs(105, 180, 25, 0, 1);
-   drawArcs(155, 180, 25, 0, 1);
-   drawArcs(245, 180, 25, 0, 1);
-   drawArcs(295, 180, 25, 0, 1);
+   drawArc(200, 180, 120, 0, 1); // large parasol
+   drawArc(108, 180, 26, 0, 1);
+   drawArc(161, 180, 26, 0, 1);
+   drawArc(243, 180, 26, 0, 1);
+   drawArc(294, 180, 26, 0, 1);
+
+   /* Draw handle */
+   //ctx.beginPath();
+   ctx.moveTo(187, 180);
+   ctx.lineTo(187, 300);
+   ctx.stroke();
+
+   drawArc(237, 300, 50, 0, 1, false);
+   drawArc(271, 300, 16, 0, 1);
+   drawArc(236, 301, 19, 0, 1, false);
+
+   ctx.moveTo(217, 300);
+   ctx.lineTo(217, 184);
+   //ctx.lineTo(220, 180);
+   ctx.stroke();
 
    /* Get pixels of shape */
    pixelsShape = getPixelAmount(66, 10, 0);
 }
 
-function drawArcs(x, y, radius, start, end) {
+function drawArc(x, y, radius, start, end, counterClockwise = true) {
    //ctx.strokeStyle = 'rgb(66, 10, 0)';
    ctx.beginPath();
    //ctx.moveTo(x, y);
-   ctx.arc(x, y, radius, start * Math.PI, end * Math.PI, true);
+   ctx.arc(x, y, radius, start * Math.PI, end * Math.PI, counterClockwise);
    ctx.stroke();
 }
 
@@ -142,6 +155,7 @@ function drawArcs(x, y, radius, start, end) {
 function handleMouseMove(e) {
    const x = e.clientX - bounds.left;
    const y = e.clientY - bounds.top;
+   //console.log(`x: ${x}, y: ${y}`);
    /* Only paint when user is holding mouse down */
    // console.log(`x is ${e.clientX}, bounds x is ${x}`);
    if (mouseDown) {
