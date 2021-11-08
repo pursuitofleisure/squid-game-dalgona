@@ -10,17 +10,19 @@ const buttonCircle = document.querySelector('.game__button-circle');
 const buttonStar = document.querySelector('.game__button-star');
 const buttonUmbrella = document.querySelector('.game__button-umbrella');
 const gameStart = document.querySelector('.game');
-const results = document.querySelector('.results');
+const score = document.querySelector('.score');
+const restart = document.querySelector('.restart');
 
 let mouseDown = false;
 let startedTurn = false;
+let brokeShape = false;
 let prevX = '';
 let prevY = '';
-let pixelsShape = '';
+let pixelsShape = 0;
 
 function setupCanvas() {
-   canvas.height = 400;
-   canvas.width = 400;
+   canvas.height = 370;
+   canvas.width = 370;
    canvas.style.width = `${canvas.width}px`;
    canvas.style.height = `${canvas.height}px`;
    ctx.lineWidth = 12;
@@ -36,12 +38,14 @@ function drawTriangle() {
    //    ctx.scale(0.8, 0.8);
    // }
    ctx.beginPath();
-   // ctx.moveTo(250, 100);
-   // ctx.lineTo(400, 350);
-   // ctx.lineTo(100, 350);
-   ctx.moveTo(200, 100);
-   ctx.lineTo(300, 275);
-   ctx.lineTo(100, 275);
+   /* Canvas size of 400 */
+   // ctx.moveTo(200, 100);
+   // ctx.lineTo(300, 275);
+   // ctx.lineTo(100, 275);
+   /* Canvas size of 370 */
+   ctx.moveTo(185, 85);
+   ctx.lineTo(285, 260);
+   ctx.lineTo(85, 260);
    ctx.closePath();
    ctx.stroke();
 
@@ -54,7 +58,7 @@ function drawCircle() {
    gameStart.classList.add('hidden');
    ctx.strokeStyle = 'rgb(66, 10, 0)';
    ctx.beginPath();
-   ctx.arc(200, 200, 100, 0*Math.PI, 2 * Math.PI);
+   ctx.arc(185, 185, 100, 0*Math.PI, 2 * Math.PI);
    ctx.closePath();
    ctx.stroke();
    /* Get pixels of shape */
@@ -67,10 +71,10 @@ function drawStar() {
    ctx.strokeStyle = 'rgb(66, 10, 0)';
 
    let rot = Math.PI / 2 * 3;
-   let x = 200;
-   let y = 200;
-   let cx = 200;
-   let cy = 200;
+   let x = 185;
+   let y = 185;
+   let cx = 185;
+   let cy = 185;
    const spikes = 5;
    const outerRadius = 120;
    const innerRadius = 60;
@@ -118,24 +122,24 @@ function drawUmbrella() {
    // end line
    //ctx.closePath();
    //ctx.stroke();
-   drawArc(200, 180, 120, 0, 1); // large parasol
-   drawArc(108, 180, 26, 0, 1);
-   drawArc(161, 180, 26, 0, 1);
-   drawArc(243, 180, 26, 0, 1);
-   drawArc(294, 180, 26, 0, 1);
+   drawArc(185, 165, 120, 0, 1); // large parasol
+   drawArc(93, 165, 26, 0, 1);
+   drawArc(146, 165, 26, 0, 1);
+   drawArc(228, 165, 26, 0, 1);
+   drawArc(279, 165, 26, 0, 1);
 
    /* Draw handle */
    //ctx.beginPath();
-   ctx.moveTo(187, 180);
-   ctx.lineTo(187, 300);
+   ctx.moveTo(172, 165);
+   ctx.lineTo(172, 285);
    ctx.stroke();
 
-   drawArc(237, 300, 50, 0, 1, false);
-   drawArc(271, 300, 16, 0, 1);
-   drawArc(236, 301, 19, 0, 1, false);
+   drawArc(222, 285, 50, 0, 1, false);
+   drawArc(256, 285, 16, 0, 1);
+   drawArc(221, 286, 19, 0, 1, false);
 
-   ctx.moveTo(217, 300);
-   ctx.lineTo(217, 184);
+   ctx.moveTo(202, 285);
+   ctx.lineTo(202, 169);
    //ctx.lineTo(220, 180);
    ctx.stroke();
 
@@ -196,7 +200,8 @@ function paint(x, y) {
    let color = getPixelColor(x, y);
    /* user has gone too far off the shape */
    if (color.a === 0) {
-      results.textContent = `You failed by breaking the shape`;
+      score.textContent = `FAILURE - You broke the shape`;
+      brokeShape = true;
    } else {
       ctx.strokeStyle = 'rgb(247, 226, 135)';
       ctx.beginPath();
@@ -229,17 +234,34 @@ function getPixelAmount(r, g, b) {
 
 /* Divide the number of pixels that were traced by the pixels in the shape to determine how accurate the cut out is */
 function evaluatePixels() {
-   let pixelsTrace = getPixelAmount(247, 226, 135);
-   //console.log(`Pixels Shape: ${pixelsShape}`);
-   //console.log(`Pixels Trace: ${pixelsTrace}`);
-   let pixelDifference = pixelsTrace / pixelsShape;
-   if (pixelDifference > 0.75 && pixelDifference < 1.25) {
-      //console.log(`${pixelDifference} You passed`);
-      results.textContent = `You passed with ${Math.round(pixelDifference * 100)}%`;
-   } else {
-      //console.log(`${pixelDifference} You failed`);
-      results.textContent = `You failed with ${Math.round(pixelDifference * 100)}%`;
+   if (!brokeShape) {
+      let pixelsTrace = getPixelAmount(247, 226, 135);
+      //console.log(`Pixels Shape: ${pixelsShape}`);
+      //console.log(`Pixels Trace: ${pixelsTrace}`);
+      let pixelDifference = pixelsTrace / pixelsShape;
+      if (pixelDifference > 0.75 && pixelDifference < 1.25) {
+         //console.log(`${pixelDifference} You passed`);
+         score.textContent = `SUCCESS - You scored ${Math.round(pixelDifference * 100)}%`;
+      } else if (pixelDifference < 0.75) {
+         //console.log(`${pixelDifference} You failed`);
+         score.textContent = `FAILURE - You cut too little at ${Math.round(pixelDifference * 100)}%`;
+      } else {
+         score.textContent = `FAILURE - You cut too much at ${Math.round(pixelDifference * 100)}%`;
+      }
    }
+}
+
+/* Clear all elements from the canvas */
+function clearCanvas() {
+   ctx.clearRect(0, 0, canvas.width, canvas.height);
+   gameStart.classList.remove('hidden');
+   mouseDown = false;
+   startedTurn = false;
+   brokeShape = false;
+   score.textContent = '';
+   prevX = '';
+   prevY = '';
+   pixelsShape = 0;
 }
 
 /* Event Handlers */
@@ -252,6 +274,6 @@ buttonCircle.addEventListener('click', drawCircle);
 buttonStar.addEventListener('click', drawStar);
 buttonUmbrella.addEventListener('click', drawUmbrella);
 
-//console.log(intViewportWidth);
+restart.addEventListener('click', clearCanvas);
+
 setupCanvas();
-//drawTriangle();
