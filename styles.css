@@ -119,16 +119,28 @@ canvas {
    width: 48px;
 }
 
-.game__button:hover svg {
+.game__button:hover svg,
+.game__button:focus svg {
    fill: var(--color-pink);
 }
 
 .results {
-   background-color: var(--color-green-light);
-   padding: 1rem;
+   background-color: var(--color-black);
+   color: var(--color-green-light);
+   padding: 0.8rem;
+   font-family: 'Zen Dots', cursive;
+   font-size: 1.2rem;
+   letter-spacing: 1px;
    text-align: center;
+   text-transform: uppercase;
    margin-top: 2rem;
+}
+
+.score {
+   background-color: var(--color-green-light);
    font-size: 1.4rem;
+   text-align: center;
+   padding: 1rem;
 }
 
 .restart {
