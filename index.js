@@ -20,9 +20,6 @@ let prevX = null;
 let prevY = null;
 let pixelsShape = 0;
 
-let pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
-let pixelsUser = ctx.getImageData(0, 0, canvas.width, canvas.height);;
-
 /* Set up the size and line styles of the canvas */
 function setupCanvas() {
    canvas.height = 370;
@@ -45,7 +42,6 @@ function drawTriangle() {
    ctx.stroke();
 
    /* Get pixels of shape */
-   pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
    pixelsShape = getPixelAmount(66, 10, 0);
 }
 
@@ -59,7 +55,6 @@ function drawCircle() {
    ctx.stroke();
 
    /* Get pixels of shape */
-   pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
    pixelsShape = getPixelAmount(66, 10, 0);
 }
 
@@ -97,7 +92,6 @@ function drawStar() {
    ctx.stroke();
 
    /* Get pixels of shape */
-   pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
    pixelsShape = getPixelAmount(66, 10, 0);
 }
 
@@ -125,7 +119,6 @@ function drawUmbrella() {
    ctx.stroke();
 
    /* Get pixels of shape */
-   pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
    pixelsShape = getPixelAmount(66, 10, 0);
 }
 
@@ -159,13 +152,12 @@ function handleMouseDown() {
 function handleMouseUp() {
    mouseDown = false;
    /* Check score once user stops drawing */
-   pixelsUser = ctx.getImageData(0, 0, canvas.width, canvas.height);
    evaluatePixels();
 }
 
 /* Get opacity of canvas */
 function getPixelColor(x, y) {
-   // const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
    let index = ((y * (pixels.width * 4)) + (x * 4));
    return {
       r:pixels.data[index],
@@ -179,8 +171,7 @@ function getPixelColor(x, y) {
 function paint(x, y) {
    let color = getPixelColor(x, y);
    /* user has gone too far off the shape */
-   console.log(`x: ${x}, y: ${y}, r: ${color.r}, g: ${color.g}, b: ${color.b}, a: ${color.a}`);
-   //if (color.a === 0) {
+   // console.log(`x: ${x}, y: ${y}, r: ${color.r}, g: ${color.g}, b: ${color.b}, a: ${color.a}`);
    if (color.r === 0 && color.g === 0 && color.b === 0) {
       score.textContent = `FAILURE - You broke the shape`;
       brokeShape = true;
@@ -201,13 +192,13 @@ function paint(x, y) {
 
 /* Read the context and get all the pixels in the canvas based on their rgb values */
 function getPixelAmount(r, g, b) {
-   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
-   const allPixels = pixels.data.length;;
+   const pixelsData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+   const allPixels = pixelsData.data.length;;
    let amount = 0;
    for (let i = 0; i < allPixels; i += 4) {
-      if (pixels.data[i] === r &&
-          pixels.data[i+1] === g &&
-          pixels.data[i+2] === b) {
+      if (pixelsData.data[i] === r &&
+         pixelsData.data[i+1] === g &&
+         pixelsData.data[i+2] === b) {
         amount++;
       }
     }
@@ -218,8 +209,8 @@ function getPixelAmount(r, g, b) {
 function evaluatePixels() {
    if (!brokeShape) {
       const pixelsTrace = getPixelAmount(247, 226, 135);
-      console.log(`Pixels Shape: ${pixelsShape}`);
-      console.log(`Pixels Trace: ${pixelsTrace}`);
+      //console.log(`Pixels Shape: ${pixelsShape}`);
+      //console.log(`Pixels Trace: ${pixelsTrace}`);
       let pixelDifference = pixelsTrace / pixelsShape;
       /* User has scored at last 50% */
       if (pixelDifference > 0.50 ) {
@@ -241,7 +232,6 @@ function clearCanvas() {
    prevX = null;
    prevY = null;
    pixelsShape = 0;
-   pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
 
 /* Event Handlers for drawing on the canvas */
