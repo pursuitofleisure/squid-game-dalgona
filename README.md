@@ -2,6 +2,8 @@
 
 Play the Dalgona Game from Squid Game using Canvas
 
+[Play Online](https://pursuitofleisure.github.io/squid-game-dalgona/)
+
 **Best viewed on larger phones**
 
 ## Built With
