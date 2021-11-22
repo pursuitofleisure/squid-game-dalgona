@@ -39,6 +39,15 @@ h2 {
    margin-top: 1rem;
 }
 
+a {
+   color: var(--color-pink);
+}
+
+a:hover,
+a:focus {
+   color: var(--color-green-light);
+}
+
 button {
    border: 0;
    box-shadow: none;
@@ -157,4 +166,12 @@ canvas {
 .restart:hover,
 .restart:focus {
    background-color: var(--color-green-light);
+}
+
+footer {
+   margin-top: 3rem;
+   text-align: center;
+   background-color: var(--color-black);
+   color: var(--color-beige);
+   padding: 0.5rem;
 }
