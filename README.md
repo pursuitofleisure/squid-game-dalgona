@@ -8,5 +8,6 @@ Play the Dalgona Game from Squid Game using Canvas
 
 ## Built With
 * HTML
+* Canvas
 * CSS
 * JavaScript
