@@ -212,11 +212,11 @@ function evaluatePixels() {
       //console.log(`Pixels Shape: ${pixelsShape}`);
       //console.log(`Pixels Trace: ${pixelsTrace}`);
       let pixelDifference = pixelsTrace / pixelsShape;
-      /* User has scored at last 50% */
-      if (pixelDifference > 0.50 ) {
+      /* User has scored at last 50% but not drawn too much (especially on mobile) */
+      if (pixelDifference > 0.75 && pixelDifference <= 1) {
          score.textContent = `SUCCESS - You scored ${Math.round(pixelDifference * 100)}%`;
       } else {
-         score.textContent = `FAILURE - You only scored ${Math.round(pixelDifference * 100)}%`;
+         score.textContent = `FAILURE - You cut ${Math.round(pixelDifference * 100)}%`;
       }
    }
 }
