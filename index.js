@@ -26,7 +26,7 @@ function setupCanvas() {
    canvas.width = 370;
    canvas.style.width = `${canvas.width}px`;
    canvas.style.height = `${canvas.height}px`;
-   ctx.lineWidth = 12;
+   ctx.lineWidth = 15;
    ctx.lineCap = 'round';
 }
 
@@ -247,5 +247,56 @@ buttonUmbrella.addEventListener('click', drawUmbrella);
 
 /* Event handler for resetting the game */
 restart.addEventListener('click', clearCanvas);
+
+// Set up touch events for mobile, etc
+canvas.addEventListener('touchstart', function(e) {
+   mousePos = getTouchPos(canvas, e);
+   const touch = e.touches[0];
+   const mouseEvent = new MouseEvent('mousedown', {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+   });
+   canvas.dispatchEvent(mouseEvent);
+}, false);
+
+canvas.addEventListener('touchend', function() {
+   const mouseEvent = new MouseEvent('mouseup', {});
+   canvas.dispatchEvent(mouseEvent);
+}, false);
+
+canvas.addEventListener("touchmove", function(e) {
+   const touch = e.touches[0];
+   const mouseEvent = new MouseEvent('mousemove', {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+   });
+   canvas.dispatchEvent(mouseEvent);
+}, false);
+
+// Get the position of a touch relative to the canvas
+function getTouchPos(canvasDom, touchEvent) {
+   const rect = canvasDom.getBoundingClientRect();
+   return {
+      x: touchEvent.touches[0].clientX - rect.left,
+      y: touchEvent.touches[0].clientY - rect.top
+   };
+}
+
+// Prevent scrolling when touching the canvas
+document.body.addEventListener('touchstart', function(e) {
+   if (e.target == canvas) {
+     e.preventDefault();
+   }
+ }, false);
+ document.body.addEventListener('touchend', function(e) {
+   if (e.target == canvas) {
+     e.preventDefault();
+   }
+ }, false);
+ document.body.addEventListener('touchmove', function(e) {
+   if (e.target == canvas) {
+     e.preventDefault();
+   }
+ }, false);
 
 setupCanvas();
